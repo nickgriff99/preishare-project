@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TheListingHub
 
-## Getting Started
+Investment classifieds platform for passive CRE — rebuilt with Next.js, Supabase, and premium motion UX.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router) + React + TypeScript
+- **Tailwind CSS v4** + Framer Motion
+- **Supabase** — Auth (Google + email), PostgreSQL, RLS
+- **Vercel** — deployment
+- **Phase 2:** Stripe (listing payments), GoHighLevel (CRM)
+
+## Quick start
 
 ```bash
+npm install
+cp .env.example .env.local
+# Add Supabase URL and anon key from https://supabase.com/dashboard
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Without Supabase credentials, the app runs in **demo mode** with seeded listing data from `lib/listings.ts`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Supabase setup
 
-## Learn More
+1. Create a project at [supabase.com](https://supabase.com)
+2. Run migrations:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npx supabase link --project-ref YOUR_REF
+   npx supabase db push
+   npx supabase db seed
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   Or apply [`supabase/migrations/20250604000000_initial_schema.sql`](supabase/migrations/20250604000000_initial_schema.sql) and [`supabase/seed.sql`](supabase/seed.sql) in the SQL editor.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Enable **Google** auth provider in Authentication → Providers
+4. Set redirect URL: `http://localhost:3000/auth/callback` (and production URL)
 
-## Deploy on Vercel
+## Environment variables
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Yes (prod) | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes (prod) | Supabase anon key |
+| `NEXT_PUBLIC_SITE_URL` | Yes (prod) | e.g. `https://your-domain.vercel.app` |
+| `SUPABASE_SERVICE_ROLE_KEY` | Optional | Server-only admin tasks |
+| `GHL_API_KEY` | Phase 2 | GoHighLevel API |
+| `STRIPE_SECRET_KEY` | Phase 2 | Stripe payments |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## MVP routes
+
+| Route | Description |
+|-------|-------------|
+| `/` | Marketing home |
+| `/listings` | Catalog (auth when Supabase configured) |
+| `/listings/[slug]` | Listing detail + express interest |
+| `/login` | Sign in / sign up |
+| `/contact` | Contact form |
+| `/privacy`, `/terms`, `/legal` | Legal pages |
+| `/coming-soon` | Phase 2 feature placeholders |
+
+## Deploy (Vercel)
+
+1. Push to GitHub
+2. Import repo in [vercel.com](https://vercel.com)
+3. Add environment variables from `.env.example`
+4. Deploy — `main` → production
+
+See [docs/MVP_LAUNCH_CHECKLIST.md](docs/MVP_LAUNCH_CHECKLIST.md) for pre-launch checks.
+
+## Scripts
+
+```bash
+npm run dev      # Development
+npm run build    # Production build
+npm run lint     # ESLint
+```
+
+## License
+
+Private — TheListingHub.
