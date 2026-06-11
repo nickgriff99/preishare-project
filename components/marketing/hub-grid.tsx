@@ -23,7 +23,7 @@ const hubs = [
   {
     title: "Get Listed",
     description: "Submit your opportunity and reach qualified investors.",
-    href: "/coming-soon?feature=get-listed",
+    href: "/get-listed",
     icon: "📈",
     cta: "From $499",
     sell: true,

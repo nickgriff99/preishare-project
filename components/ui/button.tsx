@@ -30,7 +30,10 @@ type BaseProps = {
 
 type ButtonProps = BaseProps & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-type LinkButtonProps = BaseProps & { href: string };
+type LinkButtonProps = BaseProps & {
+  href: string;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+};
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
@@ -56,10 +59,12 @@ export function LinkButton({
   className,
   children,
   fullWidth,
+  onClick,
 }: LinkButtonProps) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={cn(
         base,
         variants[variant],

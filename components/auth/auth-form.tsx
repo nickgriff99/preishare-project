@@ -13,7 +13,6 @@ export function AuthForm() {
   const [tab, setTab] = useState<Tab>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -155,17 +154,6 @@ export function AuthForm() {
                 className="form-field"
               />
             </div>
-            {tab === "signin" && (
-              <label className="flex items-center gap-3 text-sm text-muted">
-                <input
-                  type="checkbox"
-                  checked={remember}
-                  onChange={(e) => setRemember(e.target.checked)}
-                  className="h-4 w-4 shrink-0"
-                />
-                Remember me
-              </label>
-            )}
             {(error || authError) && (
               <p className="text-sm text-danger">
                 {error ?? "Authentication failed. Please try again."}

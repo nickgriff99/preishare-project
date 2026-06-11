@@ -46,7 +46,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "30-day listing visibility",
     ],
     cta: "Get your deal listed",
-    href: "/coming-soon?feature=get-listed",
+    href: "/get-listed",
     variant: "purple",
     highlighted: true,
     badge: "Most popular",

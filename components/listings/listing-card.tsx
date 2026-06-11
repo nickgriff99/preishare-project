@@ -35,6 +35,9 @@ function MetricRow({
 export function ListingCard({ listing, className, index = 0 }: ListingCardProps) {
   const sponsor = listing.sponsors;
   const minInvest = listing.minimum_investment ?? listing.target_equity * 0.01;
+  const showExampleBadge =
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    process.env.NEXT_PUBLIC_SUPABASE_URL.includes("your-project");
 
   return (
     <motion.article
@@ -61,9 +64,11 @@ export function ListingCard({ listing, className, index = 0 }: ListingCardProps)
             <span className="max-w-[70%] truncate rounded-full bg-background/80 px-3 py-1 text-xs font-medium text-purple-light backdrop-blur-sm">
               {ASSET_CLASS_LABELS[listing.asset_class]}
             </span>
-            <span className="shrink-0 rounded-full bg-background/80 px-2.5 py-1 text-xs text-muted backdrop-blur-sm">
-              Example
-            </span>
+            {showExampleBadge && (
+              <span className="shrink-0 rounded-full bg-background/80 px-2.5 py-1 text-xs text-muted backdrop-blur-sm">
+                Example
+              </span>
+            )}
           </div>
         </div>
 

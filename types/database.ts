@@ -225,6 +225,49 @@ export type Database = {
         };
         Relationships: [];
       };
+      listing_payments: {
+        Row: {
+          id: string;
+          user_id: string;
+          stripe_checkout_session_id: string;
+          stripe_payment_intent_id: string | null;
+          amount_cents: number;
+          currency: string;
+          status: string;
+          listing_title: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          stripe_checkout_session_id: string;
+          stripe_payment_intent_id?: string | null;
+          amount_cents?: number;
+          currency?: string;
+          status?: string;
+          listing_title?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          stripe_checkout_session_id?: string;
+          stripe_payment_intent_id?: string | null;
+          amount_cents?: number;
+          currency?: string;
+          status?: string;
+          listing_title?: string | null;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "listing_payments_user_id_fkey";
+            columns: ["user_id"];
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

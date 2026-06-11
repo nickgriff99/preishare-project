@@ -24,7 +24,7 @@ export function CtaBand() {
               <LinkButton href="/login" variant="purple" fullWidth className="sm:min-w-[12rem]">
                 Get free access
               </LinkButton>
-              <LinkButton href="/coming-soon?feature=get-listed" variant="primary" fullWidth className="sm:min-w-[12rem]">
+              <LinkButton href="/get-listed" variant="primary" fullWidth className="sm:min-w-[12rem]">
                 List my opportunity
               </LinkButton>
             </div>

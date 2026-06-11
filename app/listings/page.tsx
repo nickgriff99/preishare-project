@@ -77,7 +77,7 @@ export default async function ListingsPage({
               <span className="text-muted"> from $499.</span>
             </p>
             <LinkButton
-              href="/coming-soon?feature=get-listed"
+              href="/get-listed"
               className="w-full shrink-0 sm:w-auto"
             >
               Get listed

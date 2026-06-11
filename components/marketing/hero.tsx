@@ -87,7 +87,7 @@ export function Hero() {
                   Get free investor access
                 </LinkButton>
                 <LinkButton
-                  href="/coming-soon?feature=get-listed"
+                  href="/get-listed"
                   variant="outline"
                   fullWidth
                   className="sm:min-w-[14rem]"
@@ -99,8 +99,8 @@ export function Hero() {
 
             <FadeIn delay={0.2}>
               <div className="link-group text-sm sm:text-base">
-                <Link href="/listings" className="text-purple-light hover:text-gold hover:underline">
-                  Browse listings without account
+                <Link href="/login" className="text-purple-light hover:text-gold hover:underline">
+                  Sign in to browse every listing
                 </Link>
                 <Link href="#pricing" className="text-muted hover:text-gold">
                   See pricing

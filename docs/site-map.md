@@ -8,6 +8,9 @@
 | `/listings` | Done (auth-gated when Supabase configured) |
 | `/listings/[slug]` | Done |
 | `/login` | Done |
+| `/account` | Done |
+| `/get-listed` | Done |
+| `/get-listed/success` | Done |
 | `/contact` | Done |
 | `/privacy` | Done |
 | `/terms` | Done |
@@ -20,7 +23,7 @@
 | URL | Notes |
 |-----|-------|
 | Sponsor profiles directory | `/coming-soon?feature=sponsor-profiles` |
-| Get Listed flow | `/coming-soon?feature=get-listed` |
+| Get Listed flow | `/get-listed` |
 | Sponsor Application | `/coming-soon?feature=sponsor-application` |
 | Cookie Policy | Linked from privacy; dedicated page TBD |
 | Profile settings | In-app (mobile reference) |
