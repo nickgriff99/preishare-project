@@ -27,7 +27,7 @@ If this was paid client work for you, replace the paragraph above with your clie
 
 | Before ([thelistinghub.com](https://thelistinghub.com/)) | After (this rebuild) |
 |---|---|
-| ![Before — thelistinghub.com](docs/images/before.png) | ![After — portfolio rebuild](docs/images/after.png) |
+| ![Before — thelistinghub.com](docs/images/before.png) | ![After — portfolio rebuild](docs/images/after.png?v=2) |
 
 
 ## Stack
