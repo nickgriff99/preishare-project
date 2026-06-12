@@ -4,7 +4,7 @@ Modern rebuild of a live CRE investment classifieds platform — Next.js 16, Sup
 
 | | |
 |---|---|
-| **Live demo** | _Update after deploy:_ `https://YOUR-SITE.netlify.app` |
+| **Live demo** | _Update after deploy:_ `https://thelistinghub-demo.netlify.app` |
 | **Original site** | [thelistinghub.com](https://thelistinghub.com/) |
 | **Repo** | [github.com/nickgriff99/preishare-project](https://github.com/nickgriff99/preishare-project) |
 
