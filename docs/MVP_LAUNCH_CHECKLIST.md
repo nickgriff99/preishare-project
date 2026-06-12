@@ -1,5 +1,7 @@
 # MVP launch checklist
 
+See [DEPLOY.md](./DEPLOY.md) for full deploy instructions.
+
 ## Supabase
 
 - [ ] Project created and linked
@@ -18,6 +20,7 @@
 - [ ] `SUPABASE_SERVICE_ROLE_KEY` set
 - [ ] `STRIPE_SECRET_KEY` set (test or live)
 - [ ] `STRIPE_WEBHOOK_SECRET` set
+- [ ] `NEXT_PUBLIC_DEMO_MODE=true` set on Netlify
 - [ ] Production deploy successful (`npm run build` passes locally)
 
 ## Stripe

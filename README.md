@@ -1,23 +1,50 @@
-# TheListingHub
+# TheListingHub — Portfolio Rebuild
 
-Investment classifieds platform for passive CRE — rebuilt with Next.js, Supabase, Stripe, and premium motion UX.
+Modern rebuild of a live CRE investment classifieds platform — Next.js 16, Supabase, Stripe Checkout (test mode), and motion UX.
 
-**Live demo:** Deploy to Netlify and set `NEXT_PUBLIC_SITE_URL` to your production URL (see Deploy below).
+| | |
+|---|---|
+| **Live demo** | _Update after deploy:_ `https://YOUR-SITE.netlify.app` |
+| **Original site** | [thelistinghub.com](https://thelistinghub.com/) |
+| **Repo** | [github.com/nickgriff99/preishare-project](https://github.com/nickgriff99/preishare-project) |
+
+> **Stripe:** This demo uses **Stripe test mode only**. No real charges. Use test card `4242 4242 4242 4242` (any future expiry, any CVC) to walk through checkout on the live URL.
+
+## Project context
+
+This is an **independent redesign concept** inspired by [thelistinghub.com](https://thelistinghub.com/) — **not affiliated with, endorsed by, or deployed on behalf of TheListingHub**. It exists as a portfolio piece demonstrating full-stack implementation against real product requirements.
+
+If this was paid client work for you, replace the paragraph above with your client relationship and scope.
+
+**What this demo proves:**
+
+- Rebuilt marketing + listings UX with Framer Motion and Tailwind v4
+- Supabase Auth (email + Google), RLS, and PostgreSQL persistence
+- Stripe Checkout Sessions + signed webhooks → `listing_payments` table
+- Auth-gated catalog, express interest, account profile, and sponsor checkout flow
+
+## Before / after
+
+| Before ([thelistinghub.com](https://thelistinghub.com/)) | After (this rebuild) |
+|---|---|
+| ![Before — thelistinghub.com](docs/images/before.png) | ![After — portfolio rebuild](docs/images/after.png) |
+
+_Add screenshots to `docs/images/before.png` and `docs/images/after.png` — see [docs/images/README.md](docs/images/README.md)._
 
 ## Stack
 
 - **Next.js 16** (App Router) + React 19 + TypeScript
 - **Tailwind CSS v4** + Framer Motion
 - **Supabase** — Auth (Google + email), PostgreSQL, RLS
-- **Stripe** — Checkout Sessions + webhooks for sponsor listing fees
+- **Stripe** — Checkout Sessions + webhooks (**test mode**)
 - **Netlify** — deployment
 
-## Quick start
+## Quick start (local)
 
 ```bash
 npm install
 cp .env.example .env.local
-# Add Supabase URL and anon key from https://supabase.com/dashboard
+# Fill in Supabase + Stripe test keys (see below)
 npm run dev
 ```
 
@@ -28,7 +55,7 @@ Without Supabase credentials, the app runs in **demo mode** with seeded listing 
 ## Supabase setup
 
 1. Create a project at [supabase.com](https://supabase.com)
-2. Run migrations:
+2. Apply migrations:
 
    ```bash
    npx supabase link --project-ref YOUR_REF
@@ -36,35 +63,33 @@ Without Supabase credentials, the app runs in **demo mode** with seeded listing 
    npx supabase db seed
    ```
 
-   Or apply migrations in the SQL editor:
+   Or run these in the SQL editor:
    - [`supabase/migrations/20250604000000_initial_schema.sql`](supabase/migrations/20250604000000_initial_schema.sql)
    - [`supabase/migrations/20250610000000_listing_payments.sql`](supabase/migrations/20250610000000_listing_payments.sql)
    - [`supabase/seed.sql`](supabase/seed.sql)
 
-3. Enable **Google** auth provider in Authentication → Providers
+3. Enable **Google** auth in Authentication → Providers
 4. Set redirect URLs:
    - `http://localhost:3000/auth/callback`
    - `https://YOUR-SITE.netlify.app/auth/callback`
 
-## Stripe setup (test mode)
+## Stripe setup (test mode only)
 
-1. Create keys at [dashboard.stripe.com/test/apikeys](https://dashboard.stripe.com/test/apikeys)
-2. Add to `.env.local`:
-   - `STRIPE_SECRET_KEY=sk_test_...`
-   - `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...` (optional)
-3. For local webhooks:
+1. Use **test** keys from [dashboard.stripe.com/test/apikeys](https://dashboard.stripe.com/test/apikeys) — `sk_test_...` and `pk_test_...`
+2. Add to `.env.local` (never commit real keys)
+3. Local webhooks:
 
    ```bash
    stripe listen --forward-to localhost:3000/api/webhooks/stripe
    ```
 
-   Copy the webhook signing secret to `STRIPE_WEBHOOK_SECRET`.
+   Copy the signing secret to `STRIPE_WEBHOOK_SECRET`.
 
-4. In production, add a webhook endpoint in Stripe Dashboard:
+4. Production webhook (after Netlify deploy):
    - URL: `https://YOUR-SITE.netlify.app/api/webhooks/stripe`
    - Events: `checkout.session.completed`, `checkout.session.expired`
 
-**Test card:** `4242 4242 4242 4242` — any future expiry, any CVC.
+**Test card:** `4242 4242 4242 4242`
 
 ## Environment variables
 
@@ -72,14 +97,14 @@ Without Supabase credentials, the app runs in **demo mode** with seeded listing 
 |----------|----------|-------------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Yes (prod) | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Yes (prod) | Supabase anon key |
-| `NEXT_PUBLIC_SITE_URL` | Yes (prod) | e.g. `https://thelistinghub.netlify.app` |
+| `NEXT_PUBLIC_SITE_URL` | Yes (prod) | Your Netlify URL, e.g. `https://thelistinghub-demo.netlify.app` |
+| `NEXT_PUBLIC_DEMO_MODE` | Yes (prod) | Set `true` to show portfolio banner on live site |
 | `SUPABASE_SERVICE_ROLE_KEY` | Yes (prod) | Server-only — Stripe webhooks |
-| `STRIPE_SECRET_KEY` | Yes (prod) | Stripe secret key |
+| `STRIPE_SECRET_KEY` | Yes (prod) | Stripe **test** secret key (`sk_test_...`) |
 | `STRIPE_WEBHOOK_SECRET` | Yes (prod) | Stripe webhook signing secret |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Optional | Client-side Stripe.js |
-| `GHL_API_KEY` | Phase 2 | GoHighLevel API |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Optional | Stripe test publishable key |
 
-See [`.env.example`](.env.example) for a copy-paste template.
+See [`.env.example`](.env.example) and the full walkthrough in [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## Routes
 
@@ -90,34 +115,25 @@ See [`.env.example`](.env.example) for a copy-paste template.
 | `/listings/[slug]` | Listing detail + express interest |
 | `/login` | Sign in / sign up |
 | `/account` | Profile settings (authenticated) |
-| `/get-listed` | Sponsor listing checkout — $499 (authenticated) |
+| `/get-listed` | Sponsor listing checkout — $499 test mode (authenticated) |
 | `/get-listed/success` | Post-checkout confirmation |
 | `/pricing` | Pricing plans |
 | `/contact` | Contact form |
-| `/privacy`, `/terms`, `/legal` | Legal pages |
-| `/coming-soon` | Phase 2 feature placeholders |
 
-## Deploy (Netlify)
+## Deploy
 
-1. Push to GitHub
-2. Import repo in [app.netlify.com](https://app.netlify.com)
-3. Build settings (auto-detected via [`netlify.toml`](netlify.toml)):
-   - Build command: `npm run build`
-   - Plugin: `@netlify/plugin-nextjs`
-4. Add environment variables from `.env.example`
-5. Deploy — `main` → production
-6. Update Supabase OAuth redirect URLs and Stripe webhook URL to your Netlify domain
+**Full step-by-step:** [docs/DEPLOY.md](docs/DEPLOY.md)
 
-See [docs/MVP_LAUNCH_CHECKLIST.md](docs/MVP_LAUNCH_CHECKLIST.md) for pre-launch checks.
+Summary: push to GitHub → connect repo in Netlify → set env vars → apply Supabase migration → register Stripe test webhook → run smoke tests from [docs/MVP_LAUNCH_CHECKLIST.md](docs/MVP_LAUNCH_CHECKLIST.md).
 
-## Demo script (portfolio walkthrough)
+## Demo script (2 minutes for recruiters)
 
-1. Open live URL → home page with featured listings
-2. **Sign in** (Google or email) → header shows your name + sign out
-3. Browse `/listings` → open a deal → **Express interest** (writes to Supabase)
-4. Go to `/pricing` → **Get your deal listed** → `/get-listed`
-5. Enter deal title → **Pay $499** → Stripe test checkout → success page
-6. Show Supabase dashboard: `listing_interests` + `listing_payments` rows
+1. Open live Netlify URL → home + featured listings
+2. **Sign in** (Google or email) → header shows name + sign out
+3. `/listings` → open a deal → **Express interest** (writes to Supabase)
+4. `/pricing` → **Get your deal listed** → `/get-listed`
+5. Pay with test card `4242 4242 4242 4242` → success page
+6. Optional: show Supabase `listing_interests` + `listing_payments` rows
 
 ## Scripts
 
@@ -130,4 +146,4 @@ npm run typecheck # TypeScript
 
 ## License
 
-Private — TheListingHub.
+Private — portfolio demonstration project.

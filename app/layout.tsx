@@ -1,4 +1,5 @@
 import { CookieBanner } from "@/components/layout/cookie-banner";
+import { DemoBanner } from "@/components/layout/demo-banner";
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
 import type { Metadata } from "next";
@@ -45,6 +46,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full min-w-0 flex-col">
+        <DemoBanner />
         <Header />
         <main className="relative z-0 flex-1 min-w-0">{children}</main>
         <Footer />
