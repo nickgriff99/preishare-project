@@ -14,8 +14,6 @@ Modern rebuild of a live CRE investment classifieds platform — Next.js 16, Sup
 
 This is an **independent redesign concept** inspired by [thelistinghub.com](https://thelistinghub.com/) — **not affiliated with, endorsed by, or deployed on behalf of TheListingHub**. It exists as a portfolio piece demonstrating full-stack implementation against real product requirements.
 
-If this was paid client work for you, replace the paragraph above with your client relationship and scope.
-
 **What this demo proves:**
 
 - Rebuilt marketing + listings UX with Framer Motion and Tailwind v4
