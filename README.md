@@ -29,7 +29,6 @@ If this was paid client work for you, replace the paragraph above with your clie
 |---|---|
 | ![Before — thelistinghub.com](docs/images/before.png) | ![After — portfolio rebuild](docs/images/after.png) |
 
-_Add screenshots to `docs/images/before.png` and `docs/images/after.png` — see [docs/images/README.md](docs/images/README.md)._
 
 ## Stack
 
